@@ -402,6 +402,15 @@ body {
     line-height: 1.5;
 }
 
+.footer .author {
+    margin-top: 12px;
+    font-size: 11px;
+    color: #888;
+    font-weight: 400;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
 /* Responsive design */
 @media (max-width: 900px) {
     .main-content {
