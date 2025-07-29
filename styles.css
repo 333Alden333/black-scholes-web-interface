@@ -1,0 +1,460 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Berkeley Mono', 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Droid Sans Mono', 'Source Code Pro', monospace;
+    background-color: #0a0a0a;
+    color: #e0e0e0;
+    line-height: 1.4;
+    font-size: 14px;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 20px;
+}
+
+.header h1 {
+    font-size: 24px;
+    font-weight: 400;
+    color: #ffffff;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    font-size: 12px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Main content layout */
+.main-content {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+/* Input section */
+.input-section {
+    background: #111;
+    border: 1px solid #333;
+    padding: 24px;
+}
+
+.input-section h2 {
+    font-size: 16px;
+    font-weight: 400;
+    color: #fff;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 8px;
+}
+
+.input-section h3 {
+    font-size: 14px;
+    font-weight: 400;
+    color: #ccc;
+    margin: 24px 0 16px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Form styles */
+.options-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.form-group label {
+    font-size: 12px;
+    color: #ccc;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 400;
+}
+
+.form-group input,
+.form-group select {
+    background: #000;
+    border: 1px solid #444;
+    color: #fff;
+    padding: 8px 12px;
+    font-family: inherit;
+    font-size: 13px;
+    transition: border-color 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #666;
+    background: #111;
+}
+
+.form-group small {
+    font-size: 10px;
+    color: #666;
+    font-style: italic;
+}
+
+.calculate-btn {
+    background: #333;
+    color: #fff;
+    border: 1px solid #555;
+    padding: 12px 24px;
+    font-family: inherit;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 16px;
+}
+
+.calculate-btn:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.calculate-btn:active {
+    background: #222;
+}
+
+/* Results section */
+.results-section {
+    background: #111;
+    border: 1px solid #333;
+    min-height: 400px;
+}
+
+.results {
+    padding: 24px;
+}
+
+.results h2 {
+    font-size: 16px;
+    font-weight: 400;
+    color: #fff;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 8px;
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+}
+
+.result-card {
+    background: #0a0a0a;
+    border: 1px solid #333;
+    padding: 20px;
+}
+
+.result-card h3 {
+    font-size: 12px;
+    font-weight: 400;
+    color: #ccc;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #222;
+    padding-bottom: 6px;
+}
+
+.metric {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    border-bottom: 1px solid #1a1a1a;
+}
+
+.metric:last-child {
+    border-bottom: none;
+}
+
+.metric .label {
+    font-size: 11px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.metric .value {
+    font-size: 13px;
+    color: #fff;
+    font-weight: 400;
+}
+
+/* Trading recommendation styling */
+.trading-recommendation {
+    grid-column: 1 / -1;
+}
+
+.action-value {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.action-buy {
+    color: #4ade80;
+}
+
+.action-sell {
+    color: #ef4444;
+}
+
+.action-hold {
+    color: #fbbf24;
+}
+
+.action-avoid {
+    color: #6b7280;
+}
+
+.analysis {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid #222;
+}
+
+.analysis h4 {
+    font-size: 10px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.analysis p {
+    font-size: 11px;
+    color: #ccc;
+    line-height: 1.5;
+    white-space: pre-line;
+}
+
+/* PnL Analysis styling */
+.pnl-analysis {
+    grid-column: 1 / -1;
+}
+
+.pnl-targets {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.pnl-target {
+    background: #000;
+    border: 1px solid #222;
+    padding: 12px;
+}
+
+.target-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.target-price {
+    font-size: 11px;
+    color: #ccc;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.target-pnl {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.target-pnl.positive {
+    color: #4ade80;
+}
+
+.target-pnl.negative {
+    color: #ef4444;
+}
+
+.target-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10px;
+}
+
+.option-value {
+    color: #888;
+}
+
+.pnl-percent {
+    font-weight: 500;
+}
+
+.pnl-percent.positive {
+    color: #4ade80;
+}
+
+.pnl-percent.negative {
+    color: #ef4444;
+}
+
+/* Loading indicator */
+.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    color: #666;
+}
+
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #333;
+    border-top: 2px solid #666;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 12px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading p {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Error display */
+.error {
+    padding: 24px;
+    background: #1a0808;
+    border: 1px solid #4a0808;
+    color: #ff6b6b;
+}
+
+.error h3 {
+    font-size: 12px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.error p {
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+/* Utility classes */
+.hidden {
+    display: none;
+}
+
+/* Footer */
+.footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #333;
+    text-align: center;
+}
+
+.footer p {
+    font-size: 10px;
+    color: #666;
+    line-height: 1.5;
+}
+
+/* Responsive design */
+@media (max-width: 900px) {
+    .main-content {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    
+    .container {
+        padding: 16px;
+    }
+    
+    .results-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    body {
+        font-size: 13px;
+    }
+    
+    .header h1 {
+        font-size: 20px;
+    }
+    
+    .input-section,
+    .results {
+        padding: 16px;
+    }
+    
+    .result-card {
+        padding: 16px;
+    }
+}
+
+/* High contrast mode for accessibility */
+@media (prefers-contrast: high) {
+    body {
+        background-color: #000;
+        color: #fff;
+    }
+    
+    .input-section,
+    .results-section,
+    .result-card {
+        background: #000;
+        border-color: #fff;
+    }
+    
+    .form-group input,
+    .form-group select {
+        background: #000;
+        border-color: #fff;
+        color: #fff;
+    }
+}

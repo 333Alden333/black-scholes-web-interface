@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Black-Scholes Options Analyzer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Black-Scholes Options Trading Analyzer</h1>
+            <p class="subtitle">Professional options pricing and risk analysis tool</p>
+        </header>
+
+        <main class="main-content">
+            <section class="input-section">
+                <h2>Option Contract Details</h2>
+                <form id="optionsForm" class="options-form">
+                    <div class="form-group">
+                        <label for="symbol">Underlying Symbol</label>
+                        <input type="text" id="symbol" name="symbol" placeholder="e.g., AAPL" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="strike">Strike Price ($)</label>
+                        <input type="number" id="strike" name="strike" step="0.01" placeholder="150.00" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="expiry">Expiration Date</label>
+                        <input type="date" id="expiry" name="expiry" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="optionType">Option Type</label>
+                        <select id="optionType" name="optionType" required>
+                            <option value="">Select option type</option>
+                            <option value="call">Call</option>
+                            <option value="put">Put</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="currentPrice">Current Option Price ($)</label>
+                        <input type="number" id="currentPrice" name="currentPrice" step="0.01" placeholder="5.50">
+                        <small>Optional - for trading recommendations</small>
+                    </div>
+
+                    <h3>Market Data</h3>
+
+                    <div class="form-group">
+                        <label for="underlyingPrice">Current Underlying Price ($)</label>
+                        <input type="number" id="underlyingPrice" name="underlyingPrice" step="0.01" placeholder="155.00" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="riskFreeRate">Risk-Free Rate (%)</label>
+                        <input type="number" id="riskFreeRate" name="riskFreeRate" step="0.01" placeholder="5.00" required>
+                        <small>Annual rate as percentage (e.g., 5.0 for 5%)</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dividendYield">Dividend Yield (%)</label>
+                        <input type="number" id="dividendYield" name="dividendYield" step="0.01" placeholder="0.00" value="0.00">
+                        <small>Annual dividend yield as percentage</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="volatility">Volatility Estimate (%)</label>
+                        <input type="number" id="volatility" name="volatility" step="0.01" placeholder="25.00">
+                        <small>Optional - will calculate from market price if not provided</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edgeThreshold">Edge Threshold for Trading (%)</label>
+                        <input type="number" id="edgeThreshold" name="edgeThreshold" step="0.01" placeholder="10.00" value="10.00">
+                        <small>Minimum edge required for buy/sell recommendations</small>
+                    </div>
+
+                    <h3>Position & PnL Analysis</h3>
+
+                    <div class="form-group">
+                        <label for="positionSize">Position Size (Contracts)</label>
+                        <input type="number" id="positionSize" name="positionSize" step="1" placeholder="10">
+                        <small>Number of option contracts (each represents 100 shares)</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="priceTarget1">Price Target 1 ($)</label>
+                        <input type="number" id="priceTarget1" name="priceTarget1" step="0.01" placeholder="160.00">
+                        <small>First underlying price target for PnL calculation</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="priceTarget2">Price Target 2 ($)</label>
+                        <input type="number" id="priceTarget2" name="priceTarget2" step="0.01" placeholder="170.00">
+                        <small>Second underlying price target for PnL calculation</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="priceTarget3">Price Target 3 ($)</label>
+                        <input type="number" id="priceTarget3" name="priceTarget3" step="0.01" placeholder="180.00">
+                        <small>Third underlying price target for PnL calculation</small>
+                    </div>
+
+                    <button type="submit" class="calculate-btn">Calculate Black-Scholes Analysis</button>
+                </form>
+            </section>
+
+            <section class="results-section">
+                <div id="loadingIndicator" class="loading hidden">
+                    <div class="spinner"></div>
+                    <p>Calculating Black-Scholes analysis...</p>
+                </div>
+
+                <div id="results" class="results hidden">
+                    <h2>Analysis Results</h2>
+                    
+                    <div class="results-grid">
+                        <div class="result-card">
+                            <h3>Theoretical Pricing</h3>
+                            <div class="metric">
+                                <span class="label">Fair Value:</span>
+                                <span class="value" id="fairValue">$--</span>
+                            </div>
+                            <div class="metric">
+                                <span class="label">Implied Volatility:</span>
+                                <span class="value" id="impliedVol">--%</span>
+                            </div>
+                        </div>
+
+                        <div class="result-card">
+                            <h3>The Greeks</h3>
+                            <div class="metric">
+                                <span class="label">Delta (Δ):</span>
+                                <span class="value" id="delta">--</span>
+                            </div>
+                            <div class="metric">
+                                <span class="label">Gamma (Γ):</span>
+                                <span class="value" id="gamma">--</span>
+                            </div>
+                            <div class="metric">
+                                <span class="label">Theta (Θ):</span>
+                                <span class="value" id="theta">$--/day</span>
+                            </div>
+                            <div class="metric">
+                                <span class="label">Vega (ν):</span>
+                                <span class="value" id="vega">$--/1% vol</span>
+                            </div>
+                            <div class="metric">
+                                <span class="label">Rho (ρ):</span>
+                                <span class="value" id="rho">$--/1% rate</span>
+                            </div>
+                        </div>
+
+                        <div class="result-card trading-recommendation" id="tradingCard">
+                            <h3>Trading Recommendation</h3>
+                            <div class="metric">
+                                <span class="label">Action:</span>
+                                <span class="value action-value" id="action">--</span>
+                            </div>
+                            <div class="metric">
+                                <span class="label">Confidence:</span>
+                                <span class="value" id="confidence">--%</span>
+                            </div>
+                            <div class="metric">
+                                <span class="label">Edge:</span>
+                                <span class="value" id="edge">--%</span>
+                            </div>
+                            <div class="metric">
+                                <span class="label">Market Price:</span>
+                                <span class="value" id="marketPrice">$--</span>
+                            </div>
+                            <div class="analysis">
+                                <h4>Analysis:</h4>
+                                <p id="reasoning">--</p>
+                            </div>
+                        </div>
+
+                        <div class="result-card pnl-analysis" id="pnlCard">
+                            <h3>Estimated PnL Analysis</h3>
+                            <div class="metric">
+                                <span class="label">Position Size:</span>
+                                <span class="value" id="displayPositionSize">-- contracts</span>
+                            </div>
+                            <div class="metric">
+                                <span class="label">Total Investment:</span>
+                                <span class="value" id="totalInvestment">$--</span>
+                            </div>
+                            <div class="pnl-targets">
+                                <div class="pnl-target" id="pnlTarget1">
+                                    <div class="target-header">
+                                        <span class="target-price">Target 1: $--</span>
+                                        <span class="target-pnl">PnL: $--</span>
+                                    </div>
+                                    <div class="target-details">
+                                        <span class="option-value">Option Value: $--</span>
+                                        <span class="pnl-percent">Return: --%</span>
+                                    </div>
+                                </div>
+                                <div class="pnl-target" id="pnlTarget2">
+                                    <div class="target-header">
+                                        <span class="target-price">Target 2: $--</span>
+                                        <span class="target-pnl">PnL: $--</span>
+                                    </div>
+                                    <div class="target-details">
+                                        <span class="option-value">Option Value: $--</span>
+                                        <span class="pnl-percent">Return: --%</span>
+                                    </div>
+                                </div>
+                                <div class="pnl-target" id="pnlTarget3">
+                                    <div class="target-header">
+                                        <span class="target-price">Target 3: $--</span>
+                                        <span class="target-pnl">PnL: $--</span>
+                                    </div>
+                                    <div class="target-details">
+                                        <span class="option-value">Option Value: $--</span>
+                                        <span class="pnl-percent">Return: --%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="error" class="error hidden">
+                    <h3>Error</h3>
+                    <p id="errorMessage"></p>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p><strong>Disclaimer:</strong> This tool provides theoretical analysis based on the Black-Scholes model. Options trading involves substantial risk and is not suitable for all investors. Always combine with fundamental analysis, technical analysis, and proper risk management.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
